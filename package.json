@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "description": "SewaSync - fair bills, no awkward reminders. Shared student housing coordination for Malaysian off-campus rentals.",
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build && node scripts/relativize-export.mjs",

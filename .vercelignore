@@ -1,0 +1,14 @@
+# Files excluded from the upload to Vercel.
+# Vercel builds from source on its own servers, so local build output is dead
+# weight in the upload and only slows the deploy down.
+node_modules
+.next
+out
+*.tsbuildinfo
+
+# Local Vercel project link (project id, org id). Machine-specific, never commit.
+.vercel
+
+# Not needed to build the static export.
+README.md
+public/images/CREDITS.md
