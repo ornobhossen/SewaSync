@@ -1,4 +1,12 @@
-# SewaSync — source
+# SewaSync
+
+> **Demo / portfolio project — not a real product.**
+> SewaSync is a fictional shared-housing bill-splitting experience built as a
+> web development project. It is **not** a real business or product, is not
+> affiliated with any real landlord, property, or utility provider, and does not
+> process real bills, payments, or personal data. All houses, rooms, members,
+> bills, payments, reminders, and repair tickets are simulated for
+> demonstration purposes only.
 
 Shared student housing coordination for Malaysian off-campus rentals. Fair bills,
 no awkward reminders.
@@ -94,3 +102,15 @@ project when the site is not served from a domain root, and directory-style
 relative paths fail when the host tries to read them as files. If you need a
 new internal link, use the `Button` / `IconButton` / `Pressable` components or
 wrap the href with `useRelHref()`.
+
+## Disclaimer
+
+SewaSync is a **fictional demo**. The house, rooms, members, landlord, bills,
+prices, payments, reminders, and repair tickets shown are examples only. Nothing
+in this repository is a real product, service, or commercial offering. Do not
+use it to process real payments or personal data.
+
+## License
+
+This project is provided for educational and portfolio purposes. Add a license
+of your choice before redistributing.
