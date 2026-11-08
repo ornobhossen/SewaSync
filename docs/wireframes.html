@@ -1,0 +1,1251 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SewaSync — Wireframes</title>
+<style>
+  /* ---------------------------------------------------------------
+     SELF-CONTAINED. No network requests, no fonts, no images.
+     Opens from file:// and prints to A4.
+     --------------------------------------------------------------- */
+  :root{
+    --ink:#111;
+    --ink-2:#444;
+    --ink-3:#777;
+    --line:#c8c8c8;
+    --line-2:#e2e2e2;
+    --fill:#d9d9d9;
+    --fill-2:#ececec;
+    --fill-3:#f6f6f6;
+    --sel:#0f766e;
+    --sel-bg:#e6f2f0;
+    --amb:#b45309;
+    --amb-bg:#fdf3e3;
+    --dan:#b91c1c;
+    --dan-bg:#fdecec;
+    --ok:#15803d;
+    --ok-bg:#e8f6ec;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{
+    margin:0;padding:34px 30px 70px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:13px;line-height:1.55;color:var(--ink);
+    background:#fff;
+  }
+
+  /* ---- document chrome ---- */
+  .doc-head{border-bottom:2px solid var(--ink);padding-bottom:16px;margin-bottom:8px}
+  h1{font-size:26px;letter-spacing:-.02em;margin:0 0 4px}
+  .sub{color:var(--ink-3);font-size:12px;max-width:70ch}
+  .meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:12px;font-size:11px;color:var(--ink-2)}
+  .meta b{font-weight:600}
+
+  h2.sec{
+    font-size:12px;text-transform:uppercase;letter-spacing:.14em;font-weight:700;
+    margin:40px 0 6px;padding-bottom:6px;border-bottom:1px solid var(--ink);
+  }
+  h3{font-size:14px;margin:0 0 4px;letter-spacing:-.01em}
+  p.note{font-size:12px;color:var(--ink-2);margin:0 0 14px;max-width:80ch}
+
+  table.idx{width:100%;border-collapse:collapse;font-size:11.5px;margin-bottom:6px}
+  table.idx th,table.idx td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line-2);vertical-align:top}
+  table.idx th{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);font-weight:700}
+  table.idx td:first-child{white-space:nowrap;font-weight:600}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em;background:var(--fill-3);padding:1px 4px;border-radius:3px}
+
+  pre.flow{
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    font-size:11px;line-height:1.5;background:var(--fill-3);
+    border:1px solid var(--line);border-radius:6px;padding:14px;overflow-x:auto;margin:0;
+  }
+
+  /* ---- legend ---- */
+  .legend{display:flex;flex-wrap:wrap;gap:8px 10px;margin:10px 0 4px}
+  .lg{border:1px solid var(--line);border-radius:6px;padding:7px 10px;width:calc(25% - 8px);min-width:200px;background:#fff}
+  .lg .sw{display:inline-block;vertical-align:middle;margin-right:7px}
+  .lg b{font-size:11px;font-weight:600}
+  .lg span.d{font-size:10.5px;color:var(--ink-3);display:block;margin-top:3px}
+
+  /* ---- screen grid ---- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:26px 24px}
+  .screen{break-inside:avoid;page-break-inside:avoid;display:flex;flex-direction:column}
+  .screen > .cap{margin-bottom:8px}
+  .screen > .cap .name{font-size:13px;font-weight:700}
+
+  /* ---- phone ---- */
+  .ph{
+    width:100%;max-width:322px;margin:0 auto;
+    border:2px solid var(--ink);border-radius:24px;background:#fff;
+    padding:7px;box-shadow:0 1px 0 var(--fill);
+  }
+  .ph-in{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#f4f4f4;display:flex;flex-direction:column}
+  .ph-status{display:flex;align-items:center;justify-content:space-between;padding:5px 11px 3px;font-size:8px;font-weight:700;background:#fff}
+  .ph-island{width:52px;height:11px;border-radius:99px;background:#111;margin:0 auto 3px}
+  .ph-scroll{padding:0 9px 8px;display:flex;flex-direction:column;gap:7px}
+  .ph-home{height:3px;width:74px;border-radius:99px;background:#111;margin:5px auto 3px}
+
+  /* ---- generic wire atoms ---- */
+  .row{display:flex;align-items:center;gap:6px}
+  .row-t{align-items:flex-start}
+  .grow{flex:1;min-width:0}
+  .col{display:flex;flex-direction:column;gap:3px;min-width:0}
+  .gap5{gap:5px}.gap6{gap:6px}.gap7{gap:7px}
+
+  .navbar{display:flex;align-items:center;gap:6px;padding:6px 9px;background:#fff;border-bottom:1px solid var(--line)}
+  .navbar .kick{font-size:7px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3);font-weight:700}
+  .navbar .ttl{font-size:11.5px;font-weight:700;line-height:1.2}
+  .back{width:15px;height:15px;border:1px solid var(--line);border-radius:4px;position:relative;flex:none}
+  .back::after{content:"";position:absolute;left:5px;top:3px;width:5px;height:5px;border-left:1.2px solid var(--ink-3);border-bottom:1.2px solid var(--ink-3);transform:rotate(45deg)}
+  .actbtn{border:1px solid var(--ink);border-radius:5px;font-size:7.5px;font-weight:700;padding:3px 6px;white-space:nowrap;flex:none}
+  .actbtn.ghost{border-color:var(--line);font-weight:600;color:var(--ink-2)}
+  .actbtn.sq{width:17px;height:17px;display:flex;align-items:center;justify-content:center;font-size:11px;padding:0}
+
+  .card{background:#fff;border:1px solid var(--line);border-radius:8px;padding:7px}
+  .card+.card{margin-top:0}
+  .hero{background:#3a3a3a;border-radius:8px;padding:9px;color:#fff;display:flex;flex-direction:column;gap:6px}
+  .hero .inv{color:#dcdcdc;font-size:7px;text-transform:uppercase;letter-spacing:.1em;font-weight:700}
+  .hero .big{font-size:19px;font-weight:800;letter-spacing:-.02em;line-height:1}
+  .hero .stat{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:4px 5px}
+  .hero .stat .k{font-size:6.5px;text-transform:uppercase;letter-spacing:.07em;color:#e6e6e6;font-weight:700}
+  .hero .stat .v{font-size:9.5px;font-weight:800;line-height:1.2}
+  .hero .prog{background:rgba(255,255,255,.3);height:4px;border-radius:99px;overflow:hidden}
+  .hero .prog i{display:block;height:100%;background:#fff}
+  .hero .ov{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.3);border-radius:6px;padding:5px 6px}
+
+  .ln{height:5px;border-radius:99px;background:var(--fill);width:100%}
+  .ln.xs{height:4px;background:#e6e6e6}
+  .ln.t{height:7px;background:#b9b9b9}
+  .ln.h{height:9px;background:#a8a8a8}
+  .w20{width:20%}.w30{width:30%}.w40{width:40%}.w50{width:50%}.w60{width:60%}.w70{width:70%}.w80{width:80%}.w90{width:90%}
+
+  .seg{display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff}
+  .seg i{flex:1;font-style:normal;font-size:7.5px;font-weight:600;text-align:center;padding:4px 2px;color:var(--ink-3);border-right:1px solid var(--line-2)}
+  .seg i:last-child{border-right:0}
+  .seg i.on{background:var(--sel-bg);color:var(--sel);font-weight:700;box-shadow:inset 0 -2px 0 var(--sel)}
+
+  .tog{width:22px;height:13px;border-radius:99px;background:var(--sel);position:relative;flex:none}
+  .tog::after{content:"";position:absolute;right:2px;top:2px;width:9px;height:9px;border-radius:50%;background:#fff}
+  .tog.off{background:var(--line)}
+  .tog.off::after{left:2px;right:auto}
+
+  .pill{display:inline-flex;align-items:center;gap:2px;font-size:6.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;padding:2px 5px;border-radius:99px;border:1px solid var(--line);color:var(--ink-2);background:#fff;white-space:nowrap}
+  .pill.brand{border-color:#7fc4bd;color:var(--sel);background:var(--sel-bg)}
+  .pill.ok{border-color:#94c9a6;color:var(--ok);background:var(--ok-bg)}
+  .pill.amb{border-color:#e0b478;color:var(--amb);background:var(--amb-bg)}
+  .pill.dan{border-color:#e3a3a3;color:var(--dan);background:var(--dan-bg)}
+  .pill.neu{background:var(--fill-3)}
+
+  .btn{border:1px solid var(--ink);background:#fff;border-radius:6px;font-size:8px;font-weight:700;text-align:center;padding:5px 7px;white-space:nowrap}
+  .btn.pri{background:var(--ink);color:#fff}
+  .btn.sec{border-color:var(--line);color:var(--ink-2);font-weight:600;background:#fff}
+  .btn.secf{border-color:var(--line);color:var(--ink-2);font-weight:600;background:#fff;width:100%}
+  .btn.dang{border-color:#c98a8a;color:var(--dan);background:var(--dan-bg);font-weight:600}
+  .btn.dis{border-color:var(--line);color:#b4b4b4;font-weight:600}
+
+  .fld{display:flex;flex-direction:column;gap:3px}
+  .fld .lb{font-size:7.5px;font-weight:700;color:var(--ink-2)}
+  .fld .hint{font-size:6.5px;color:var(--ink-3)}
+  .inp{border:1px solid var(--line);border-radius:5px;background:#fff;height:19px;display:flex;align-items:center;padding:0 6px;font-size:7.5px;color:#a5a5a5}
+  .inp.err{border-color:#c98a8a}
+  .inp.err::after{content:"required";margin-left:auto;font-size:6.5px;color:var(--dan);font-weight:700}
+  .inp.ta{height:34px;align-items:flex-start;padding-top:4px}
+  .sel{border:1px solid var(--line);border-radius:5px;background:#fff;height:19px;display:flex;align-items:center;padding:0 6px;font-size:7.5px;color:var(--ink-2);font-weight:600}
+  .sel::after{content:"▾";margin-left:auto;color:var(--ink-3);font-size:8px}
+  .tgl{border:1px solid var(--line);border-radius:6px;background:#fff;padding:5px 6px;font-size:8px;font-weight:700}
+
+  .tile{border:1px solid var(--line);border-radius:6px;background:#fff;padding:5px;font-size:7.5px;font-weight:700;text-align:center}
+  .tile.on{border-color:var(--sel);background:var(--sel-bg);color:var(--sel);box-shadow:inset 0 0 0 1px var(--sel)}
+  .tile.ico{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;font-size:8px}
+  .ico-sq{width:17px;height:17px;border-radius:5px;background:var(--sel-bg);border:1px solid #7fc4bd}
+
+  .prog{height:4px;border-radius:99px;background:var(--line-2);overflow:hidden;margin-top:4px}
+  .prog i{display:block;height:100%;background:var(--ink-3)}
+  .prog i.full{background:var(--sel)}
+
+  .av{width:18px;height:18px;border-radius:50%;background:var(--fill-2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:6.5px;font-weight:800;color:var(--ink-2);flex:none}
+  .av.sm{width:14px;height:14px;font-size:5.5px}
+  .av.lg{width:26px;height:26px;font-size:8px}
+
+  .photo{
+    border:1px solid var(--line);border-radius:5px;
+    background:repeating-linear-gradient(45deg,#e9e9e9,#e9e9e9 4px,#f4f4f4 4px,#f4f4f4 8px);
+    display:flex;align-items:center;justify-content:center;
+    font-size:6.5px;color:var(--ink-3);font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  }
+  .photo.sq{width:44px;height:44px;flex:none}
+  .photo.r43{height:62px}
+
+  .note-i{display:flex;gap:5px;font-size:7.5px;color:var(--ink-3);line-height:1.4}
+  .note-i::before{content:"i";flex:none;width:9px;height:9px;border-radius:50%;border:1px solid var(--sel);color:var(--sel);font-size:6px;font-weight:800;text-align:center;line-height:8px;margin-top:1px}
+
+  .notice{border:1px solid var(--line);border-radius:6px;padding:5px 6px;display:flex;gap:5px}
+  .notice b{font-size:7.5px;display:block}
+  .notice span{font-size:6.8px;color:var(--ink-3);line-height:1.4;display:block}
+  .notice.brand{border-color:#7fc4bd;background:var(--sel-bg)}
+  .notice.amb{border-color:#e0b478;background:var(--amb-bg)}
+  .notice.neu{background:#fff}
+
+  .list{border:1px solid var(--line);border-radius:6px;background:#fff;overflow:hidden}
+  .list > div{display:flex;align-items:center;gap:6px;padding:5px 6px;border-bottom:1px solid var(--line-2)}
+  .list > div:last-child{border-bottom:0}
+  .list .tot{background:var(--fill-3);font-weight:800}
+  .list .em{background:var(--sel-bg);font-weight:800}
+
+  .sec-lb{font-size:7px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-3)}
+  .hr{height:1px;background:var(--line-2);margin:2px 0}
+  .mono{font-variant-numeric:tabular-nums}
+  .chev{color:#b4b4b4;font-size:9px;flex:none}
+  .tri{font-size:7px;color:var(--ink-3);flex:none}
+
+  .sheet{border:1px solid var(--line);border-radius:10px;background:#fff;padding:7px;display:flex;flex-direction:column;gap:6px}
+  .grab{width:26px;height:3px;border-radius:99px;background:var(--line);margin:0 auto}
+
+  /* annotation marker */
+  .mk{display:inline-block;width:11px;height:11px;line-height:10px;border-radius:50%;background:var(--ink);color:#fff;font-size:7px;font-weight:700;text-align:center;margin-left:3px;vertical-align:middle;font-style:normal}
+  .mk.a{background:#fff;color:var(--ink);border:1px solid var(--ink);line-height:9px}
+
+  /* tab bar */
+  .tabs{display:flex;background:#fff;border-top:1px solid var(--line);padding:4px 2px 5px}
+  .tabs > div{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px}
+  .tabs .ic{width:13px;height:13px;border:1.4px solid #a9a9a9;border-radius:3px}
+  .tabs .ic.on{border-color:var(--sel);border-width:2px;background:var(--sel-bg)}
+  .tabs .tx{font-size:6px;font-weight:700;color:#a9a9a9}
+  .tabs .tx.on{color:var(--sel)}
+  .tabs .dot{position:absolute;margin:-11px 0 0 8px;width:4px;height:4px;border-radius:50%;background:var(--dan)}
+
+  .tag{display:inline-block;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;border:1px solid var(--ink);padding:1px 5px;border-radius:3px}
+  .tag.sel{border-color:var(--sel);color:var(--sel);background:var(--sel-bg)}
+
+  /* print */
+  @page{size:A4 landscape;margin:11mm}
+  @media print{
+    body{padding:0;font-size:11px}
+    .grid{grid-template-columns:repeat(3,1fr);gap:16px 14px}
+    h2.sec{break-after:avoid;margin:22px 0 4px}
+    .screen{break-inside:avoid}
+    table.idx,.pre{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ COVER -->
+<div class="doc-head">
+  <h1>SewaSync — Wireframes</h1>
+  <p class="sub">
+    Low-fidelity layout specification for the core five tabs and their key flows. Every screen below is
+    traced from the shipped implementation in <code>components/*Screen.tsx</code>, so section order,
+    labels and control types reflect what actually ships — not an aspiration. Grey blocks stand in
+    for imagery and copy weight; annotations in <span class="mk a">○</span> call out behaviour that is
+    not obvious from the box drawing.
+  </p>
+  <div class="meta">
+    <span><b>Stack</b> Next.js 15 App Router · React 19 · Tailwind 3.4 · Plus Jakarta Sans</span>
+    <span><b>Target</b> 390 × 844 (mobile-first, phone-framed)</span>
+    <span><b>Nav</b> 5-tab bottom bar, no desktop chrome</span>
+    <span><b>Demo fixture</b> Rumah Kalantan 2 · Aiman Hakimi · pinned to 15 Sep 2026, 09:41</span>
+  </div>
+</div>
+
+<h2 class="sec">1 — Notation</h2>
+<div class="legend">
+  <div class="lg"><span class="sw"><span class="ln t w60" style="display:inline-block;vertical-align:middle"></span></span><b>Copy line</b><span class="d">Grey bar = a run of text. Height tracks the type scale (micro → hero).</span></div>
+  <div class="lg"><span class="sw"><span class="card" style="display:inline-block;padding:3px 10px;vertical-align:middle"></span></span><b>Card</b><span class="d">White, 1px border, 16px radius. The default content container.</span></div>
+  <div class="lg"><span class="sw"><span class="hero" style="display:inline-block;padding:4px 12px;vertical-align:middle"></span></span><b>Hero / tinted block</b><span class="d">The dark hero on Home, or a tinted notice. Drawn dark here.</span></div>
+  <div class="lg"><span class="sw"><span class="pill brand" style="vertical-align:middle">Paid</span></span><b>Status pill</b><span class="d">Teal = brand/selected, green = paid, amber = part-paid, red = overdue, grey = neutral.</span></div>
+  <div class="lg"><span class="sw"><span class="btn pri" style="display:inline-block;vertical-align:middle">Next</span></span><b>Button</b><span class="d">Filled = primary action. Outline = secondary. Red outline = destructive.</span></div>
+  <div class="lg"><span class="sw"><span class="inp" style="display:inline-block;width:52px;vertical-align:middle"></span></span><b>Input</b><span class="d">Boxed field. Dashed/empty = placeholder text present.</span></div>
+  <div class="lg"><span class="sw"><span class="seg" style="display:inline-block;width:64px;vertical-align:middle"><i class="on">A</i><i>B</i></span></span><b>Segmented</b><span class="d">Single-choice row or tab strip. Active segment carries a teal underline.</span></div>
+  <div class="lg"><span class="sw"><span class="photo sq" style="display:inline-block;vertical-align:middle"></span></span><b>Photo slot</b><span class="d">Hatched area for a camera capture or a supplied image.</span></div>
+</div>
+<p class="note" style="margin-top:12px">
+  A box drawn with a <b>teal outline</b> is in its selected/active state on the screen shown.
+  Amounts are the real seeded figures, so the arithmetic on screen agrees across all ten screens —
+  RM 412.80 of TNB splits to 95.46 / 95.46 / 134.97 / 86.91, and Aiman owes RM 41.40 across two bills.
+</p>
+
+<!-- ============================================================ INDEX -->
+<h2 class="sec">2 — Screen index</h2>
+<table class="idx">
+  <tr><th>#</th><th>Route</th><th>Screen</th><th>Job to be done</th></tr>
+  <tr><td>01</td><td><code>/</code></td><td>Home</td><td>Answer "what do I owe, and is my house okay?" in one scroll, without navigating.</td></tr>
+  <tr><td>02</td><td><code>/bills/</code></td><td>Bills</td><td>Scan and filter the ledger; drill into any bill for the working.</td></tr>
+  <tr><td>03</td><td><code>/repairs/</code></td><td>Repairs</td><td>Track what is broken, who reported it, and how far it has moved.</td></tr>
+  <tr><td>04</td><td><code>/house/</code></td><td>House</td><td>Administer rooms, meters, people and house settings; read the activity log.</td></tr>
+  <tr><td>05</td><td><code>/account/</code></td><td>Account</td><td>Profile, subscription, notification and language preferences, support, sign-out.</td></tr>
+  <tr><td>06</td><td><code>/bills/new/</code></td><td>Add a bill — 1 of 3</td><td>Capture what the bill is for.</td></tr>
+  <tr><td>07</td><td><code>/bills/new/</code></td><td>Add a bill — 2 of 3</td><td>Choose how it splits; per-method inputs appear inline.</td></tr>
+  <tr><td>08</td><td><code>/bills/new/</code></td><td>Add a bill — 3 of 3</td><td>Review the live allocation and send, or save a draft.</td></tr>
+  <tr><td>09</td><td><code>/bills/view/?id=</code></td><td>Bill detail</td><td>Defend a number: per-person breakdown, the derivation, payments made.</td></tr>
+  <tr><td>10</td><td><code>/bills/pay/</code></td><td>Record a payment</td><td>Log that money moved — full or partial, for yourself or a housemate.</td></tr>
+  <tr><td>11</td><td><code>/repairs/new/</code></td><td>Report a repair</td><td>Submit a fault with a required photo so the landlord can act.</td></tr>
+  <tr><td>12</td><td><code>/repairs/[id]/</code></td><td>Repair detail</td><td>Read the timeline and advance the ticket's status.</td></tr>
+</table>
+<p class="note">
+  Not drawn here, but part of the product: <code>/reminders/</code>, <code>/landlord/</code>,
+  <code>/setup/</code>, <code>/setup/invite/</code>, <code>/snap/</code>, <code>/demo/</code>.
+  Bill detail and repair detail are each statically prerendered at a concrete id, so every link into
+  them works offline — <code>/bills/b-tnb/</code> and <code>/repairs/t-window/</code> are both valid URLs.
+</p>
+
+<!-- ============================================================ FLOW -->
+<h2 class="sec">3 — Flow map</h2>
+<pre class="flow">
+   ┌──────────────────────────────── bottom tab bar (5 destinations, always present) ──────────────────────────────┐
+   │        HOME                BILLS               REPAIRS              HOUSE               ACCOUNT             │
+   │          │                   │                    │                    │                   │                │
+   │          │ quick action      │ + add              │ report a repair    │ per-room Edit     │ Plan Renew      │
+   │          │                   │                    │                    │ per-member        │ Reminders row   │
+   │          │                   ▼                    │                    │ statement         │ Language row    │
+   │          │            ┌─────────────┐             ▼                    │                   │ Demo controls   │
+   │          └────────────▶│ ADD A BILL  │◀──────────────┘                ▼                   ▼                │
+   │       bell icon         │ 1 bill      │                              ┌───────────┐      ┌───────────┐        │
+   │          │             │ 2 split     │                              │ 2 SHEETS  │      │ /landlord/│        │
+   │          ▼             │ 3 review    │                              │ room edit │      └───────────┘        │
+   │   ┌─────────────┐     └──────┬──────┘                              │ statement │                          │
+   │   │  REMINDERS  │            │  send / save draft                  └───────────┘                          │
+   │   └─────────────┘            ▼                                                                   │
+   │                     ┌──────────────┐  tap any bill   ┌──────────────┐   record payment   ┌─────────┐  │
+   │                     │ BILL DETAIL  │◀────────────────▶│ BILL DETAIL  │────────────────────▶│  PAY    │  │
+   │                     └──────────────┘                  └──────────────┘                     └─────────┘  │
+   │                          │        │                                                                               │
+   │        change method ◀──┘        └── change method (Sheet)                                                   │
+   └───────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+   SHEETS (bottom overlays, not routes):  room editor · per-member statement · change split method
+   TOASTS (transient):  recorded · sent · copied · reset · acknowledged
+</pre>
+
+<h2 class="sec">4 — Core tabs</h2>
+<div class="grid">
+
+<!-- ============================ 01 HOME ============================ -->
+<div class="screen">
+  <div class="cap">
+        <div class="name">Home</div>
+      </div>
+  <div class="ph"><div class="ph-in">
+    <div class="ph-status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+    <div class="ph-island"></div>
+    <div class="ph-scroll">
+      <!-- top bar -->
+      <div class="navbar" style="border-radius:0;margin:0 -9px;padding-left:11px;padding-right:11px">
+        <span class="ln t" style="width:52px"></span>
+        <span class="grow"></span>
+        <span class="actbtn sq">◦</span>
+        <span class="actbtn sq">+</span>
+        <span class="mk">1</span>
+      </div>
+      <!-- hero -->
+      <div class="hero">
+        <div class="row"><span style="font-size:7.5px;color:#e2e2e2">Good morning, Aiman</span><span class="grow"></span><span class="ln xs w40" style="background:#7d7d7d"></span></div>
+        <div><div class="inv">Left to pay</div><div class="big">RM 41.40</div><div style="font-size:6.5px;color:#d4d4d4">Sent via SewaSync</div></div>
+        <div class="row gap5">
+          <div class="stat grow"><div class="k">Paid</div><div class="v" style="color:#b8f0d2">594.56</div></div>
+          <div class="stat grow"><div class="k">Due</div><div class="v" style="color:#fde68a">41.40</div></div>
+          <div class="stat grow"><div class="k">Overdue</div><div class="v" style="color:#fecaca">0.00</div></div>
+        </div>
+        <div>
+          <div style="font-size:6.5px;color:#e2e2e2;margin-bottom:3px">5 bills · RM 3,174.80 this month · 71% settled</div>
+          <div class="prog"><i style="width:71%"></i></div>
+        </div>
+        <div class="ov">
+          <div class="inv">House overdue</div>
+          <div style="font-size:10px;font-weight:800;color:#fecaca;margin:1px 0">RM 850.00</div>
+          <div style="font-size:6.5px;color:#e2e2e2">Kavintharan is 6d late on Rent <span class="mk">2</span></div>
+        </div>
+      </div>
+      <!-- attention -->
+      <div class="card">
+        <div class="row"><span class="sec-lb grow">Needs attention</span><span class="pill dan">3</span></div>
+        <div class="col gap5" style="margin-top:6px">
+          <div class="row gap5"><span class="av sm">KS</span><span class="ln xs w50"></span><span class="pill dan">Overdue 6d</span><span class="chev">›</span></div>
+          <div class="row gap5"><span class="av sm">AH</span><span class="ln xs w40"></span><span class="pill amb">Due in 3d</span><span class="chev">›</span></div>
+          <div class="row gap5"><span class="av sm">AH</span><span class="ln xs w40"></span><span class="pill amb">Due in 5d</span><span class="chev">›</span></div>
+        </div>
+        <div class="hr" style="margin:6px 0 4px"></div>
+        <span class="ln xs w40" style="background:#8fc3bf"></span>
+      </div>
+      <!-- why -->
+      <div class="card">
+        <div class="ln t w60"></div>
+        <div class="ln xs w90" style="margin-top:3px"></div>
+        <div class="ln xs w50" style="background:#8fc3bf;margin-top:4px"></div>
+        <div class="col gap5" style="margin-top:6px;padding:6px;background:var(--fill-3);border-radius:6px">
+          <div class="sec-lb">How this was calculated</div>
+          <div class="row"><span class="ln xs grow"></span><span class="ln t w40"></span></div>
+          <div class="row"><span class="ln xs grow"></span><span class="ln t w40"></span></div>
+          <div class="row" style="background:#fff"><span class="ln xs grow"></span><span class="ln t w40"></span></div>
+        </div>
+        <span class="mk">3</span>
+      </div>
+      <!-- pulse -->
+      <div class="card">
+        <div class="sec-lb">House pulse</div>
+        <div class="row gap6" style="margin-top:6px"><span class="ico-sq"></span><span class="col grow"><span class="ln xs w60"></span><span class="ln xs w40"></span></span><span class="chev">›</span></div>
+        <div class="row gap6"><span class="ico-sq"></span><span class="col grow"><span class="ln xs w50"></span><span class="ln xs w40"></span></span><span class="chev">›</span></div>
+        <div class="row gap6"><span class="ico-sq"></span><span class="col grow"><span class="ln xs w50"></span><span class="ln xs w70"></span></span><span class="pill brand">4 of 4</span></div>
+      </div>
+      <!-- quick actions -->
+      <div class="col gap5">
+        <div class="sec-lb">Quick actions</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px">
+          <div class="tile ico"><span class="ico-sq"></span><span style="font-size:7px">Add a bill</span></div>
+          <div class="tile ico"><span class="ico-sq"></span><span style="font-size:7px">Snap meter</span></div>
+          <div class="tile ico"><span class="ico-sq"></span><span style="font-size:7px">Log payment</span></div>
+          <div class="tile ico"><span class="ico-sq"></span><span style="font-size:7px">Report a repair</span></div>
+        </div>
+      </div>
+      <div class="note-i">SewaSync does not move money. It records that you did.</div>
+    </div>
+    <div class="ph-home"></div>
+    <div class="tabs">
+      <div style="position:relative"><span class="ic on"></span><span class="dot"></span></div>
+      <div><span class="ic"></span></div><div><span class="ic"></span></div><div><span class="ic"></span></div><div><span class="ic"></span></div>
+    </div>
+  </div></div>
+  </div>
+
+<!-- ============================ 02 BILLS ============================ -->
+<div class="screen">
+  <div class="cap">
+        <div class="name">Bills</div>
+      </div>
+  <div class="ph"><div class="ph-in">
+    <div class="ph-status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+    <div class="ph-island"></div>
+    <div class="ph-scroll">
+      <div class="navbar" style="border-radius:0;margin:0 -9px">
+        <span class="kick" style="flex:1">Bills</span>
+        <span class="actbtn sq">+</span>
+      </div>
+
+      <div class="seg"><i class="on">All</i><i>Utilities</i><i>Rent</i><i>Other</i></div>
+
+      <div class="card">
+        <div class="ln t w90"></div>
+        <div class="ln xs w50" style="margin-top:3px"></div>
+      </div>
+
+      <!-- bill cards -->
+      <div class="card">
+        <div class="row"><span class="ln t grow w60"></span><span class="pill dan">Overdue 6d</span><span class="chev">›</span></div>
+        <div class="row gap6" style="margin-top:4px"><span class="sec-lb">Fixed amount</span><span class="ln xs w40"></span></div>
+        <div class="row" style="margin-top:4px"><span class="col grow"><span class="sec-lb">Your share RM 450.00</span><span class="ln xs w40"></span></span><span class="ln h w20" style="background:#dcdcdc"></span></div>
+        <div class="prog"><i style="width:65%"></i></div>
+      </div>
+
+      <div class="card">
+        <div class="row"><span class="ln t grow w70"></span><span class="pill ok">Paid</span><span class="chev">›</span></div>
+        <div class="row gap6" style="margin-top:4px"><span class="sec-lb" style="color:var(--sel)">⚡ Sub-meter usage</span><span class="ln xs w40"></span></div>
+        <div class="row" style="margin-top:4px"><span class="col grow"><span class="sec-lb">Your share RM 95.46</span><span class="ln xs w40"></span></span><span class="ln h w20" style="background:#dcdcdc"></span></div>
+        <div class="prog"><i class="full" style="width:100%"></i></div>
+      </div>
+
+      <div class="card">
+        <div class="row"><span class="ln t grow w60"></span><span class="pill ok">Paid</span><span class="chev">›</span></div>
+        <div class="row gap6" style="margin-top:4px"><span class="sec-lb">Equal split</span><span class="ln xs w40"></span></div>
+        <div class="row" style="margin-top:4px"><span class="col grow"><span class="sec-lb">Your share RM 32.50</span><span class="ln xs w40"></span></span><span class="ln h w20" style="background:#dcdcdc"></span></div>
+        <div class="prog"><i class="full" style="width:100%"></i></div>
+      </div>
+
+      <div class="card">
+        <div class="row"><span class="ln t grow w70"></span><span class="pill amb">Part-paid</span><span class="chev">›</span></div>
+        <div class="row gap6" style="margin-top:4px"><span class="sec-lb">Equal split</span><span class="ln xs w40"></span></div>
+        <div class="row" style="margin-top:4px"><span class="col grow"><span class="sec-lb">Your share RM 11.40</span><span class="ln xs w50"></span></span><span class="ln h w20"></span></div>
+        <div class="prog"><i style="width:50%"></i></div>
+      </div>
+
+      <div class="card">
+        <div class="row"><span class="ln t grow w50"></span><span class="pill amb">Part-paid</span><span class="chev">›</span></div>
+        <div class="row gap6" style="margin-top:4px"><span class="sec-lb">Equal split</span><span class="ln xs w40"></span></div>
+        <div class="row" style="margin-top:4px"><span class="col grow"><span class="sec-lb">Your share RM 46.60</span><span class="ln xs w60"></span></span><span class="ln h w20"></span></div>
+        <div class="prog"><i style="width:68%"></i></div>
+      </div>
+    </div>
+    <div class="ph-home"></div>
+    <div class="tabs"><div><span class="ic"></span></div><div><span class="ic on"></span></div><div><span class="ic"></span></div><div><span class="ic"></span></div><div><span class="ic"></span></div></div>
+  </div></div>
+  </div>
+
+<!-- ============================ 03 REPAIRS ============================ -->
+<div class="screen">
+  <div class="cap">
+        <div class="name">Repairs</div>
+      </div>
+  <div class="ph"><div class="ph-in">
+    <div class="ph-status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+    <div class="ph-island"></div>
+    <div class="ph-scroll">
+      <div class="navbar" style="border-radius:0;margin:0 -9px">
+        <span class="col grow"><span class="kick">Rumah Kalantan 2</span><span class="ttl">Repairs</span></span>
+        <span class="actbtn">＋ Report</span>
+      </div>
+
+      <div class="sec-lb">2 open</div>
+
+      <div class="card">
+        <div class="row-t gap6">
+          <span class="photo sq"></span>
+          <span class="col grow gap5">
+            <span class="row"><span class="ln t grow w70"></span><span class="pill amb">Acknw.</span></span>
+            <span class="ln xs w50"></span>
+            <span class="ln xs w60"></span>
+            <span class="row" style="margin-top:2px"><span class="ln xs w50" style="background:#8fc3bf"></span><span class="tri">▸</span></span>
+          </span>
+        </div>
+      </div>
+
+      <!-- expanded ticket -->
+      <div class="card" style="border-color:var(--ink);border-width:1.5px">
+        <div class="row-t gap6">
+          <span class="photo sq"></span>
+          <span class="col grow gap5">
+            <span class="row"><span class="ln t grow w70"></span><span class="pill dan">Reported</span></span>
+            <span class="ln xs w40"></span>
+            <span class="ln xs w60"></span>
+            <span class="row" style="margin-top:2px"><span class="ln xs w50" style="background:#8fc3bf"></span><span class="tri">▾</span></span>
+          </span>
+        </div>
+        <div class="hr" style="margin:6px 0 5px"></div>
+        <div class="ln xs w90"></div>
+        <div class="ln xs w80" style="margin-top:3px"></div>
+        <div class="col gap5" style="margin-top:6px">
+          <div class="row-t gap5"><span style="width:4px;height:4px;border-radius:50%;background:var(--sel);margin-top:3px;flex:none"></span><span class="col grow"><span class="ln xs w80"></span><span class="ln xs w40"></span></span></div>
+          <div class="row-t gap5"><span style="width:4px;height:4px;border-radius:50%;background:var(--sel);margin-top:3px;flex:none"></span><span class="col grow"><span class="ln xs w80"></span><span class="ln xs w40"></span></span></div>
+        </div>
+        <div style="margin-top:6px"><span class="btn secf">Acknowledge</span></div>
+        <span class="mk">5</span>
+      </div>
+
+      <div class="sec-lb" style="margin-top:3px">Resolved (1)</div>
+      <div class="card">
+        <div class="row-t gap6">
+          <span class="photo sq"></span>
+          <span class="col grow gap5">
+            <span class="row"><span class="ln t grow w70"></span><span class="pill ok">Resolved</span></span>
+            <span class="ln xs w40"></span>
+            <span class="ln xs w50"></span>
+          </span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ln t w90"></div>
+        <div class="note-i" style="margin-top:4px">Encik Rahmat moves this forward once a contractor is booked.</div>
+        <div style="margin-top:6px"><span class="btn secf">Preview their view</span></div>
+      </div>
+    </div>
+    <div class="ph-home"></div>
+    <div class="tabs"><div><span class="ic"></span></div><div><span class="ic"></span></div><div><span class="ic on"></span></div><div><span class="ic"></span></div><div><span class="ic"></span></div></div>
+  </div></div>
+  </div>
+
+<!-- ============================ 04 HOUSE ============================ -->
+<div class="screen">
+  <div class="cap">
+        <div class="name">House</div>
+      </div>
+  <div class="ph"><div class="ph-in">
+    <div class="ph-status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+    <div class="ph-island"></div>
+    <div class="ph-scroll">
+      <div class="navbar" style="border-radius:0;margin:0 -9px">
+        <span class="col grow"><span class="kick">Rumah Kalantan 2</span><span class="ttl">House</span></span>
+        <span class="actbtn ghost">＋ Invite</span>
+      </div>
+
+      <div class="card">
+        <div class="row"><span class="ln h grow"></span><span class="pill brand">4 people</span></div>
+        <div class="ln xs w80" style="margin-top:4px"></div>
+        <div class="ln xs w50" style="margin-top:3px"></div>
+      </div>
+
+      <div class="col gap5">
+        <div class="sec-lb">Rooms</div>
+        <div class="ln xs w90"></div>
+        <div class="card">
+          <div class="row-t gap6">
+            <span class="col grow gap5">
+              <span class="row"><span class="ln t w40"></span><span class="pill neu">2 people</span></span>
+              <span class="ln xs w60"></span><span class="ln xs w70"></span>
+              <span class="ln xs w50" style="background:#7fb8b3"></span>
+            </span>
+            <span class="btn sec">Edit</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="row-t gap6">
+            <span class="col grow gap5">
+              <span class="row"><span class="ln t w40"></span><span class="pill neu">1 people</span></span>
+              <span class="ln xs w60"></span><span class="ln xs w70"></span>
+              <span class="ln xs w50" style="background:#7fb8b3"></span>
+            </span>
+            <span class="btn sec">Edit</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="row-t gap6">
+            <span class="col grow gap5">
+              <span class="row"><span class="ln t w40"></span><span class="pill neu">1 people</span></span>
+              <span class="ln xs w60"></span><span class="ln xs w70"></span>
+              <span class="ln xs w50" style="background:#7fb8b3"></span>
+            </span>
+            <span class="btn sec">Edit</span>
+          </div>
+        </div>
+        <div class="card">
+          <div class="row-t gap6">
+            <span class="ico-sq"></span>
+            <span class="col grow gap5"><span class="ln t w50"></span><span class="ln xs w70"></span></span>
+          </div>
+          <span class="mk">6</span>
+        </div>
+      </div>
+
+      <div class="col gap5">
+        <div class="sec-lb">Members</div>
+        <div class="card">
+          <div class="row-t gap6">
+            <span class="av">AH</span>
+            <span class="col grow gap5"><span class="ln t w60"></span><span class="ln xs w60"></span></span>
+            <span class="col" style="align-items:flex-end"><span class="ln t w40"></span><span class="ln xs w30"></span></span>
+          </div>
+          <div class="row gap5" style="margin-top:6px"><span class="btn sec">Statement</span><span class="pill brand">You</span></div>
+        </div>
+        <div class="card">
+          <div class="row-t gap6">
+            <span class="av">KS</span>
+            <span class="col grow gap5"><span class="ln t w60"></span><span class="ln xs w60"></span></span>
+            <span class="col" style="align-items:flex-end"><span class="ln t w40"></span><span class="ln xs w30"></span></span>
+          </div>
+          <div class="row" style="margin-top:6px"><span class="btn sec">Statement</span></div>
+        </div>
+      </div>
+
+      <div class="col gap5">
+        <div class="sec-lb">House activity</div>
+        <div class="ln xs w90"></div>
+        <div class="list">
+          <div><span class="av sm">AH</span><span class="col grow"><span class="ln xs w90"></span><span class="ln xs w40"></span></span></div>
+          <div><span class="av sm">NI</span><span class="col grow"><span class="ln xs w90"></span><span class="ln xs w40"></span></span></div>
+          <div><span class="av sm">WY</span><span class="col grow"><span class="ln xs w90"></span><span class="ln xs w40"></span></span></div>
+        </div>
+        <span class="btn secf">Show all (6)</span>
+      </div>
+
+      <div class="card">
+        <div class="sec-lb">Landlord access</div>
+        <div class="ln t w90" style="margin-top:4px"></div>
+        <div class="ln xs w90" style="margin-top:3px"></div>
+        <div style="margin-top:6px"><span class="btn secf">Preview their view</span></div>
+      </div>
+
+      <div class="card">
+        <div class="sec-lb">House settings</div>
+        <div class="row" style="margin-top:5px"><span class="ln xs grow"></span><span class="ln xs w30"></span></div>
+        <div class="row" style="margin-top:4px"><span class="ln xs grow"></span><span class="ln xs w30"></span></div>
+        <div class="row" style="margin-top:4px"><span class="ln xs grow"></span><span class="ln xs w30"></span></div>
+        <div style="margin-top:6px"><span class="btn secf">Set up your house</span></div>
+      </div>
+    </div>
+    <div class="ph-home"></div>
+    <div class="tabs"><div><span class="ic"></span></div><div><span class="ic"></span></div><div><span class="ic"></span></div><div><span class="ic on"></span></div><div><span class="ic"></span></div></div>
+  </div></div>
+  </div>
+
+<!-- ============================ 05 ACCOUNT ============================ -->
+<div class="screen">
+  <div class="cap">
+        <div class="name">Account</div>
+      </div>
+  <div class="ph"><div class="ph-in">
+    <div class="ph-status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+    <div class="ph-island"></div>
+    <div class="ph-scroll">
+      <div class="navbar" style="border-radius:0;margin:0 -9px">
+        <span class="col grow"><span class="kick">Rumah Kalantan 2</span><span class="ttl">Account</span></span>
+        <span class="pill neu">Demo</span>
+      </div>
+
+      <div class="card">
+        <div class="row-t gap6">
+          <span class="av lg">AH</span>
+          <span class="col grow gap5"><span class="ln h w60"></span><span class="ln xs w70"></span></span>
+          <span class="pill amb">3</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="row-t gap6">
+          <span class="ico-sq"></span>
+          <span class="col grow gap5"><span class="ln t w50"></span><span class="ln xs w60"></span></span>
+          <span class="ln t w30"></span>
+        </div>
+        <div class="ln xs w90" style="margin-top:5px"></div>
+        <div class="ln xs w60" style="margin-top:3px;background:#8fc3bf"></div>
+        <div style="margin-top:6px"><span class="btn secf">Renew</span></div>
+      </div>
+
+      <div class="col gap5">
+        <div class="sec-lb">Notifications</div>
+        <div class="list">
+          <div><span class="col grow"><span class="ln t w70"></span><span class="ln xs w80"></span></span><span class="tog"></span></div>
+          <div><span class="ico-sq"></span><span class="col grow"><span class="ln t w60"></span><span class="ln xs w50"></span></span><span class="chev">›</span></div>
+          <div><span class="ico-sq"></span><span class="col grow"><span class="ln t w60"></span><span class="ln xs w40"></span></span><span class="chev">›</span></div>
+        </div>
+        <span class="mk">8</span>
+      </div>
+
+      <div class="col gap5">
+        <div class="sec-lb">Language</div>
+        <div class="card">
+          <div class="row gap5">
+            <span class="tile on grow">English</span>
+            <span class="tile grow">Bahasa M.</span>
+          </div>
+          <div class="ln xs w80" style="margin-top:5px"></div>
+          <span class="mk">9</span>
+        </div>
+      </div>
+
+      <div class="list">
+        <div><span class="ico-sq"></span><span class="col grow"><span class="ln t w50"></span></span><span class="chev">›</span></div>
+        <div><span class="ico-sq"></span><span class="col grow"><span class="ln t w60"></span><span class="ln xs w70"></span></span><span class="chev">›</span></div>
+        <div><span class="ico-sq"></span><span class="col grow"><span class="ln t w60"></span></span><span class="chev">›</span></div>
+        <div><span class="ico-sq"></span><span class="col grow"><span class="ln t w50"></span></span><span class="chev">›</span></div>
+        <div><span class="ico-sq"></span><span class="col grow"><span class="ln t w70"></span></span><span class="chev">›</span></div>
+      </div>
+
+      <div class="notice neu"><span><b>Demo mode</b><span>Demo data lives on this device only.</span></span></div>
+
+      <span class="btn dang">Sign out</span>
+      <div class="note-i">SewaSync does not move money. It records that you did.</div>
+    </div>
+    <div class="ph-home"></div>
+    <div class="tabs"><div><span class="ic"></span></div><div><span class="ic"></span></div><div><span class="ic"></span></div><div><span class="ic"></span></div><div><span class="ic on"></span></div></div>
+  </div></div>
+  </div>
+
+</div>
+
+<!-- ============================================================ FLOWS -->
+<h2 class="sec">5 — Key flows</h2>
+<div class="grid">
+
+<!-- ============================ 06 ADD BILL 1 ============================ -->
+<div class="screen">
+  <div class="cap">
+        <div class="name">Add a bill — 1 of 3 · "Bill"</div>
+      </div>
+  <div class="ph"><div class="ph-in">
+    <div class="ph-status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+    <div class="ph-island"></div>
+    <div class="ph-scroll">
+      <div class="navbar" style="border-radius:0;margin:0 -9px">
+        <span class="back"></span>
+        <span class="col grow"><span class="kick">Step 1 of 3</span><span class="ttl">Add a bill</span></span>
+      </div>
+
+      <div class="fld">
+        <span class="lb">What kind of bill?</span>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-top:2px">
+          <span class="tile on" style="font-size:7px">Electricity</span>
+          <span class="tile" style="font-size:7px">Water</span>
+          <span class="tile" style="font-size:7px">Wi-Fi</span>
+          <span class="tile" style="font-size:7px">Rent</span>
+          <span class="tile" style="font-size:7px">Groceries</span>
+          <span class="tile" style="font-size:7px">Other</span>
+        </div>
+      </div>
+
+      <div class="fld"><span class="lb">How much?</span><span class="inp">0.00</span></div>
+
+      <div class="fld">
+        <span class="lb">Give it a short title <span style="color:var(--ink-3);font-weight:500">· optional</span></span>
+        <span class="inp"></span>
+      </div>
+
+      <div class="fld"><span class="lb">Period</span><span class="inp">2026-09</span></div>
+
+      <div class="fld"><span class="lb">Payable to</span><span class="inp">Who gets paid</span></div>
+
+      <div class="row gap5">
+        <div class="fld grow"><span class="lb">Issue date</span><span class="inp">2026-09-15</span></div>
+        <div class="fld grow"><span class="lb">Due date</span><span class="inp">2026-09-30</span></div>
+      </div>
+
+      <div class="fld">
+        <span class="lb">Receipt photo</span>
+        <span class="hint">No receipt attached — add one if the house wants a paper trail.</span>
+        <span class="photo r43" style="margin-top:3px"></span>
+        <span class="btn sec">📷 Choose a photo</span>
+      </div>
+
+      <span class="btn pri" style="width:100%">Next</span>
+      <span class="mk">10</span>
+    </div>
+  </div></div>
+  </div>
+
+<!-- ============================ 07 ADD BILL 2 ============================ -->
+<div class="screen">
+  <div class="cap">
+        <div class="name">Add a bill — 2 of 3 · "How to split"</div>
+      </div>
+  <div class="ph"><div class="ph-in">
+    <div class="ph-status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+    <div class="ph-island"></div>
+    <div class="ph-scroll">
+      <div class="navbar" style="border-radius:0;margin:0 -9px">
+        <span class="col grow"><span class="kick">Step 2 of 3</span><span class="ttl">Add a bill</span></span>
+        <span class="actbtn ghost">← Back</span>
+      </div>
+
+      <div class="fld">
+        <span class="lb">How should this be split?</span>
+        <div class="col gap5" style="margin-top:2px">
+          <div class="card" style="border-color:var(--sel);border-width:1.5px;background:var(--sel-bg)">
+            <div class="row-t gap5"><span class="col grow gap5"><span class="ln t w60"></span><span class="ln xs w90"></span></span><span style="color:var(--sel)">✓</span></div>
+          </div>
+          <div class="card"><div class="row-t gap5"><span class="col grow gap5"><span class="ln t w50"></span><span class="ln xs w90"></span></span></div></div>
+          <div class="card"><div class="row-t gap5"><span class="col grow gap5"><span class="ln t w50"></span><span class="ln xs w90"></span></span></div></div>
+          <div class="card"><div class="row-t gap5"><span class="col grow gap5"><span class="ln t w60"></span><span class="ln xs w90"></span></span></div></div>
+        </div>
+      </div>
+
+      <!-- conditional: submeter readings -->
+      <div class="card">
+        <div class="sec-lb">Total usage</div>
+        <div class="col gap5" style="margin-top:5px">
+          <div class="row"><span class="ln xs grow"></span><span class="ln xs w50"></span></div>
+          <div class="row"><span class="ln xs grow"></span><span class="ln xs w50"></span></div>
+          <div class="row"><span class="ln xs grow"></span><span class="ln xs w50"></span></div>
+          <div class="row"><span class="ln xs grow"></span><span class="ln xs w50"></span></div>
+        </div>
+        <span class="mk">11</span>
+      </div>
+
+      <div class="seg"><i class="on">Send to 4 members</i><i>Draft</i></div>
+
+      <div class="notice neu"><span><b>Split and sent to 4 members</b><span>Change the method and every figure below recalculates live. The total always matches the bill exactly.</span></span></div>
+
+      <div class="row gap5"><span class="btn sec" style="flex:1">← Back</span><span class="btn pri" style="flex:2">Next</span></div>
+    </div>
+  </div></div>
+  </div>
+
+<!-- ============================ 08 ADD BILL 3 ============================ -->
+<div class="screen">
+  <div class="cap">
+        <div class="name">Add a bill — 3 of 3 · "Review and send"</div>
+      </div>
+  <div class="ph"><div class="ph-in">
+    <div class="ph-status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+    <div class="ph-island"></div>
+    <div class="ph-scroll">
+      <div class="navbar" style="border-radius:0;margin:0 -9px">
+        <span class="col grow"><span class="kick">Step 3 of 3</span><span class="ttl">Add a bill</span></span>
+        <span class="actbtn ghost">← Back</span>
+      </div>
+
+      <div class="card">
+        <div class="row-t gap6"><span class="col grow gap5"><span class="ln t w70"></span></span><span class="ln h w40"></span></div>
+        <div class="row gap5" style="margin-top:5px"><span class="pill neu">Sub-meter</span><span class="pill brand">Sep 2026</span></div>
+        <div class="ln xs w90" style="margin-top:5px"></div>
+      </div>
+
+      <div class="fld">
+        <span class="lb">Preview</span>
+        <div class="list" style="margin-top:2px">
+          <div><span class="col grow"><span class="ln t w60"></span></span><span class="ln xs w30"></span><span class="ln t w30"></span></div>
+          <div><span class="col grow"><span class="ln t w60"></span></span><span class="ln xs w30"></span><span class="ln t w30"></span></div>
+          <div><span class="col grow"><span class="ln t w60"></span></span><span class="ln xs w30"></span><span class="ln t w30"></span></div>
+          <div><span class="col grow"><span class="ln t w50"></span></span><span class="ln xs w30"></span><span class="ln t w30"></span></div>
+          <div class="tot"><span class="col grow"><span class="ln t w60"></span></span><span class="ln h w40"></span></div>
+        </div>
+      </div>
+
+      <div class="notice brand"><span><b>Reminder preview</b><span>"Hi Kavintharan, your Electricity · Sep 2026 share of RM 134.97 for Sep 2026 is due. Tap to record your payment."</span></span></div>
+
+      <div class="fld">
+        <span class="lb">Note for the house <span style="color:var(--ink-3);font-weight:500">· optional</span></span>
+        <span class="inp ta"></span>
+      </div>
+
+      <div class="notice amb"><span><b>No usage recorded this period — split equally.</b></span></div>
+
+      <span class="btn pri" style="width:100%">Split and send</span>
+      <span class="btn secf">← Back</span>
+      <div class="note-i">SewaSync does not move money. It records that you did.</div>
+      <span class="mk">12</span>
+    </div>
+  </div></div>
+  </div>
+
+<!-- ============================ 09 BILL DETAIL ============================ -->
+<div class="screen">
+  <div class="cap">
+        <div class="name">Bill detail</div>
+      </div>
+  <div class="ph"><div class="ph-in">
+    <div class="ph-status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+    <div class="ph-island"></div>
+    <div class="ph-scroll">
+      <div class="navbar" style="border-radius:0;margin:0 -9px">
+        <span class="back"></span>
+        <span class="col grow"><span class="kick">Electricity</span><span class="ttl">Electricity · TNB</span></span>
+      </div>
+
+      <div class="card">
+        <div class="row-t gap6">
+          <span class="col grow gap5"><span class="sec-lb">Aug 2026</span><span style="font-size:15px;font-weight:800">RM 412.80</span></span>
+          <span class="pill ok">Paid</span>
+        </div>
+        <div class="ln xs w90" style="margin-top:5px"></div>
+        <div class="row gap5" style="margin-top:5px"><span class="pill brand">Fairest</span><span class="pill neu">⚡ Sub-meter</span><span class="ln xs w40"></span></div>
+      </div>
+
+      <div class="card" style="border-color:#e0b478;background:var(--amb-bg)">
+        <div class="row-t gap5"><span>⚠</span><span class="ln xs w90" style="background:#f0dcbb"></span></div>
+        <span class="mk">13</span>
+      </div>
+
+      <div class="card">
+        <div class="row gap5"><span class="sec-lb grow">Your share RM 95.46</span><span class="pill ok">Paid</span></div>
+        <div class="notice brand" style="margin-top:6px"><span><b>You're charged RM 7.74 less than an equal split. See how we worked it out.</b><span>Each room has its own sub-meter, so the charge lands where the usage happened.</span></span></div>
+        <span class="btn secf" style="margin-top:5px">⇄ Show my usage share</span>
+        <div class="seg" style="margin-top:5px"><i class="on">Usage based</i><i>Equal split</i></div>
+        <div class="list" style="margin-top:6px">
+          <div><span class="col grow"><span class="ln xs w70"></span><span class="ln xs w40"></span></span><span class="ln t w30"></span></div>
+          <div><span class="col grow"><span class="ln xs w70"></span><span class="ln xs w40"></span></span><span class="ln t w30"></span></div>
+          <div><span class="col grow"><span class="ln xs w60"></span></span><span class="ln t w30"></span></div>
+          <div class="em"><span class="col grow"><span class="ln t w50"></span></span><span class="ln h w30"></span></div>
+        </div>
+        <div class="ln xs w70" style="margin-top:5px;background:#8fc3bf"></div>
+        <div class="note-i" style="margin-top:5px">Change the method and every figure below recalculates live.</div>
+      </div>
+
+      <div class="seg"><i class="on">Breakdown</i><i>Paid</i></div>
+
+      <div class="card">
+        <div class="row gap5"><span class="sec-lb grow">How this bill is split</span><span class="ln xs w40" style="background:#8fc3bf"></span></div>
+        <div class="ln xs w90" style="margin-top:4px"></div>
+        <span class="mk">14</span>
+      </div>
+
+      <div class="card">
+        <div class="row-t gap6"><span class="av">AH</span><span class="col grow gap5"><span class="ln t w60"></span><span class="ln xs w70"></span></span><span class="col" style="align-items:flex-end"><span class="ln t w30"></span></span><span class="chev">›</span></div>
+      </div>
+      <div class="card">
+        <div class="row-t gap6"><span class="av">KS</span><span class="col grow gap5"><span class="ln t w60"></span><span class="ln xs w70"></span></span><span class="col" style="align-items:flex-end"><span class="ln t w30"></span></span><span class="chev">›</span></div>
+      </div>
+
+      <div class="card">
+        <div class="row-t gap6"><span class="col grow gap5"><span class="ln t w60"></span><span class="ln xs w80"></span></span><span class="ln t w30"></span></div>
+        <div class="ln xs w90" style="margin-top:4px"></div>
+        <div class="ln xs w80" style="margin-top:3px"></div>
+        <span class="mk">15</span>
+      </div>
+
+      <span class="btn dang" style="width:100%">Void bill</span>
+      <div class="note-i">SewaSync does not move money. It records that you did.</div>
+    </div>
+  </div></div>
+  </div>
+
+<!-- ============================ 10 PAY ============================ -->
+<div class="screen">
+  <div class="cap">
+        <div class="name">Record a payment</div>
+      </div>
+  <div class="ph"><div class="ph-in">
+    <div class="ph-status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+    <div class="ph-island"></div>
+    <div class="ph-scroll">
+      <div class="navbar" style="border-radius:0;margin:0 -9px">
+        <span class="back"></span>
+        <span class="ttl grow">Record a payment</span>
+      </div>
+
+      <div class="notice brand"><span><b>SewaSync does not move money. This records that the money moved.</b></span></div>
+
+      <div class="card">
+        <div class="row-t gap5">
+          <span class="col grow gap5"><span class="sec-lb">Bill</span><span class="ln t w80"></span></span>
+          <span class="pill neu">Unpaid</span>
+        </div>
+        <div class="row-t gap5" style="margin-top:5px">
+          <span class="col grow gap5"><span class="ln xs w80"></span><span class="ln t w70"></span></span>
+          <span style="font-size:14px;font-weight:800">RM 11.40</span>
+        </div>
+      </div>
+
+      <div class="fld"><span class="lb">Who paid</span><span class="sel">Aiman Hakimi (You)</span></div>
+
+      <div class="fld">
+        <span class="lb">Amount paid</span>
+        <span class="hint">Full share is RM 11.40</span>
+        <div class="row gap5" style="margin-top:2px">
+          <span class="inp grow">11.40</span>
+          <span class="btn sec">Mark all paid</span>
+        </div>
+      </div>
+
+      <div class="fld">
+        <span class="lb">How</span>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:2px">
+          <span class="tile on" style="font-size:7px">DuitNow ✓</span>
+          <span class="tile" style="font-size:7px">Bank transfer</span>
+          <span class="tile" style="font-size:7px">Cash</span>
+          <span class="tile" style="font-size:7px">Household fund</span>
+        </div>
+      </div>
+
+      <div class="notice amb"><span><b>Part payment — the bill stays Part-paid until the full share is recorded.</b></span><span class="pill amb" style="margin-top:4px">Part-paid</span></div>
+
+      <span class="btn pri" style="width:100%">Record payment</span>
+      <div class="note-i">SewaSync does not move money. It records that you did.</div>
+      <span class="mk">16</span>
+    </div>
+  </div></div>
+  </div>
+
+<!-- ============================ 11 REPAIR NEW ============================ -->
+<div class="screen">
+  <div class="cap">
+        <div class="name">Report a repair</div>
+      </div>
+  <div class="ph"><div class="ph-in">
+    <div class="ph-status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+    <div class="ph-island"></div>
+    <div class="ph-scroll">
+      <div class="navbar" style="border-radius:0;margin:0 -9px">
+        <span class="back"></span>
+        <span class="ttl grow">New repair request</span>
+      </div>
+
+      <div class="notice brand"><span><b>A photo is required</b><span>Repairs go up with a picture of the problem — add one to send this.</span></span></div>
+
+      <div class="fld"><span class="lb">What is broken?</span><span class="inp">Air-con leaking in Bilik 2</span></div>
+
+      <div class="fld">
+        <span class="lb">Describe it</span>
+        <span class="inp ta">What happened, and since when?</span>
+      </div>
+
+      <div class="fld"><span class="lb">Category</span><span class="sel">Air-con</span></div>
+      <div class="fld"><span class="lb">Which room?</span><span class="sel">Bilik 1</span></div>
+
+      <div class="fld">
+        <span class="lb">Photo</span>
+        <span class="photo r43" style="margin-top:2px"></span>
+        <span class="btn sec">📷 Add photo</span>
+      </div>
+
+      <span class="btn pri" style="width:100%">Send request</span>
+      <div class="note-i">Encik Rahmat moves this forward once a contractor is booked.</div>
+      <span class="mk">17</span>
+    </div>
+  </div></div>
+  </div>
+
+<!-- ============================ 12 REPAIR DETAIL ============================ -->
+<div class="screen">
+  <div class="cap">
+        <div class="name">Repair detail</div>
+      </div>
+  <div class="ph"><div class="ph-in">
+    <div class="ph-status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+    <div class="ph-island"></div>
+    <div class="ph-scroll">
+      <div class="navbar" style="border-radius:0;margin:0 -9px">
+        <span class="back"></span>
+        <span class="col grow"><span class="kick">Activity</span><span class="ttl">Window latch will not lock</span></span>
+      </div>
+
+      <div class="card">
+        <span class="photo r43" style="width:100%"></span>
+        <div class="row-t gap5" style="margin-top:6px">
+          <span class="col grow"><span class="ln t w90"></span></span>
+          <span class="pill amb">Acknw.</span>
+        </div>
+        <div class="ln xs w50" style="margin-top:4px"></div>
+        <div class="ln xs w70" style="margin-top:3px"></div>
+        <div class="ln xs w90" style="margin-top:5px"></div>
+        <div class="ln xs w80" style="margin-top:3px"></div>
+      </div>
+
+      <div class="sec-lb">Activity</div>
+      <div class="list">
+        <div class="row-t"><span style="width:4px;height:4px;border-radius:50%;background:var(--sel);margin-top:3px;flex:none"></span><span class="col grow gap5"><span class="ln t w80"></span><span class="ln xs w60"></span></span></div>
+        <div class="row-t"><span style="width:4px;height:4px;border-radius:50%;background:var(--sel);margin-top:3px;flex:none"></span><span class="col grow gap5"><span class="ln t w70"></span><span class="ln xs w50"></span></span></div>
+      </div>
+
+      <div class="sec-lb">Change status</div>
+      <span class="btn secf">🔨 Start work</span>
+
+      <div class="notice neu"><span><b>Encik Rahmat moves this forward once a contractor is booked.</b><span>Only the landlord can mark a repair resolved.</span></span></div>
+      <span class="mk">18</span>
+    </div>
+  </div></div>
+  </div>
+
+</div>
+
+<!-- ============================================================ OVERLAYS -->
+<h2 class="sec">6 — Overlays and states (not routes)</h2>
+<p class="note">
+  Three bottom sheets and one transient element. They are the app's only modal surfaces, and all three
+  dismiss on Escape and on backdrop tap, so they are reachable by keyboard as well as thumb.
+</p>
+<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(330px,1fr))">
+
+  <div class="screen">
+    <div class="cap"><div class="name">Room details</div>
+    </div>
+    <div class="ph"><div class="ph-in">
+      <div class="ph-status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+      <div class="ph-scroll" style="padding-top:26px">
+        <div class="sheet">
+          <div class="grab"></div>
+          <div class="sec-lb">Room details</div>
+          <div class="notice neu"><span><b>Bilik 1</b><span>Without a sub-meter its members get the stated house-average share, labelled as an assumption.</span></span></div>
+          <div class="fld"><span class="lb">Monthly rent</span><span class="inp">900.00</span></div>
+          <div class="tgl row"><span class="grow" style="font-size:7.5px">This room has a sub-meter</span><span style="color:var(--sel)">✓</span></div>
+          <div class="row gap5">
+            <div class="fld grow"><span class="lb">Previous reading</span><span class="inp">1842</span></div>
+            <div class="fld grow"><span class="lb">Current reading</span><span class="inp">2110</span></div>
+          </div>
+          <span class="btn pri" style="width:100%">✓ Save</span>
+        </div>
+      </div>
+    </div></div>
+      </div>
+
+  <div class="screen">
+    <div class="cap"><div class="name">Kavintharan S.'s statement</div>
+    </div>
+    <div class="ph"><div class="ph-in">
+      <div class="ph-status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+      <div class="ph-scroll" style="padding-top:26px">
+        <div class="sheet">
+          <div class="grab"></div>
+          <div class="sec-lb">Kavintharan S.'s statement</div>
+          <div class="list">
+            <div><span class="col grow gap5"><span class="ln t w70"></span><span class="ln xs w50"></span></span><span class="pill ok">Paid</span><span class="ln t w30"></span></div>
+            <div><span class="col grow gap5"><span class="ln t w70"></span><span class="ln xs w50"></span></span><span class="pill dan">Overdue</span><span class="ln t w30"></span></div>
+            <div><span class="col grow gap5"><span class="ln t w70"></span><span class="ln xs w50"></span></span><span class="pill neu">Unpaid</span><span class="ln t w30"></span></div>
+            <div><span class="col grow gap5"><span class="ln t w70"></span><span class="ln xs w50"></span></span><span class="pill ok">Paid</span><span class="ln t w30"></span></div>
+          </div>
+          <div class="row gap5"><span class="ln t grow"></span><span style="font-size:14px;font-weight:800">RM 850.00</span></div>
+          <div class="note-i">SewaSync does not move money. It records that you did.</div>
+          <span class="ln xs w40" style="background:#8fc3bf"></span>
+        </div>
+      </div>
+    </div></div>
+      </div>
+
+  <div class="screen">
+    <div class="cap"><div class="name">Change method</div>
+    </div>
+    <div class="ph"><div class="ph-in">
+      <div class="ph-status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+      <div class="ph-scroll" style="padding-top:26px">
+        <div class="sheet">
+          <div class="grab"></div>
+          <div class="sec-lb">Change method</div>
+          <div class="ln xs w90" style="margin-bottom:3px"></div>
+          <div class="card" style="border-color:var(--sel);border-width:1.5px;background:var(--sel-bg)"><div class="row-t gap5"><span class="col grow gap5"><span class="ln t w60"></span><span class="ln xs w90"></span></span><span style="color:var(--sel)">✓</span></div></div>
+          <div class="card"><div class="row-t gap5"><span class="col grow gap5"><span class="ln t w60"></span><span class="ln xs w90"></span></span></div></div>
+          <div class="card"><div class="row-t gap5"><span class="col grow gap5"><span class="ln t w60"></span><span class="ln xs w90"></span></span></div></div>
+          <div class="card"><div class="row-t gap5"><span class="col grow gap5"><span class="ln t w60"></span><span class="ln xs w90"></span></span></div></div>
+        </div>
+      </div>
+    </div></div>
+      </div>
+
+  <div class="screen">
+    <div class="cap"><div class="name">Confirmation</div>
+    </div>
+    <div class="ph"><div class="ph-in">
+      <div class="ph-status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+      <div class="ph-island"></div>
+      <div class="ph-scroll" style="flex:1;justify-content:flex-end;padding-bottom:14px">
+        <div style="background:#111;color:#fff;border-radius:99px;padding:7px 12px;display:flex;align-items:center;gap:6px;align-self:center;max-width:100%">
+          <span style="color:#5eead4">✓</span>
+          <span style="font-size:8px;font-weight:700">Recorded RM 11.40 against Water</span>
+        </div>
+      </div>
+      <div class="ph-home"></div>
+      <div class="tabs"><div><span class="ic"></span></div><div><span class="ic on"></span></div><div><span class="ic"></span></div><div><span class="ic"></span></div><div><span class="ic"></span></div></div>
+    </div></div>
+      </div>
+
+  <div class="screen">
+    <div class="cap"><div class="name">Offline</div>
+    </div>
+    <div class="ph"><div class="ph-in">
+      <div class="ph-status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+      <div class="ph-island"></div>
+      <div style="background:var(--amb-bg);border-bottom:1px solid #e0b478;padding:5px 9px;font-size:7.5px;font-weight:700;color:var(--amb)">⚠ You are offline. Showing the last data saved on this device.</div>
+      <div class="ph-scroll"><div class="card" style="margin-top:9px"><div class="ln t w70"></div><div class="ln xs w90" style="margin-top:4px"></div><div class="ln xs w50" style="margin-top:3px"></div></div></div>
+      <div class="ph-home"></div>
+      <div class="tabs"><div><span class="ic"></span></div><div><span class="ic on"></span></div><div><span class="ic"></span></div><div><span class="ic"></span></div><div><span class="ic"></span></div></div>
+    </div></div>
+      </div>
+
+  <div class="screen">
+    <div class="cap"><div class="name">Empty state</div>
+    </div>
+    <div class="ph"><div class="ph-in">
+      <div class="ph-status"><span>9:41</span><span>▮▮▮ ᯤ ▰</span></div>
+      <div class="ph-island"></div>
+      <div class="ph-scroll" style="flex:1;justify-content:center;align-items:center;padding-top:26px">
+        <div class="col gap6" style="align-items:center;text-align:center;max-width:180px">
+          <div class="ico-sq" style="width:28px;height:28px;border-radius:8px"></div>
+          <div class="ln t w80"></div>
+          <div class="ln xs w90"></div>
+          <div class="ln xs w60"></div>
+          <span class="btn pri">Add your first bill</span>
+        </div>
+      </div>
+      <div class="ph-home"></div>
+      <div class="tabs"><div><span class="ic"></span></div><div><span class="ic on"></span></div><div><span class="ic"></span></div><div><span class="ic"></span></div><div><span class="ic"></span></div></div>
+    </div></div>
+      </div>
+
+</div>
+
+<h2 class="sec">7 — Cross-screen invariants</h2>
+<p class="note">
+  These hold on every screen and are worth stating explicitly, because each one is load-bearing for
+  trust rather than for looks.
+</p>
+<table class="idx">
+  <tr><th>Invariant</th><th>Where it shows</th></tr>
+  <tr><td>Every money figure is <b>tabular</b>, and every amount is integer sen formatted as <code>RM 0.00</code>. No floats, ever.</td><td>All 12 screens</td></tr>
+  <tr><td><b>Teal is the only decorative colour.</b> Green, amber and red mean paid / part-paid / overdue and appear nowhere as decoration.</td><td>All 12 screens</td></tr>
+  <tr><td>Every status is a <b>pill with a word</b>, never colour alone — colour-blind-safe by construction.</td><td>Bills, Bill detail, Pay, Repairs, Repair detail, House</td></tr>
+  <tr><td>The <b>custody disclaimer</b> ("does not move money, records that you did") appears on every surface where a payment is recorded or contemplated.</td><td>Home, Account, Bill detail, Pay, Add bill 3, statement sheet</td></tr>
+  <tr><td>Any figure a person may dispute is <b>one tap from its derivation</b>, and the derivation is produced by the same engine as the figure.</td><td>Home, Bill detail, Add bill 3, statement sheet</td></tr>
+  <tr><td>Reminders are <b>fixed wording with only the amount varying</b>, and are logged rather than transmitted.</td><td>Add bill 3, Reminders</td></tr>
+  <tr><td>Destructive actions are <b>red, outlined, and never the default primary</b>. A bill with recorded payments offers Void, never Delete, so history survives.</td><td>Account, Bill detail</td></tr>
+  <tr><td>Bottom tab bar is <b>present on the five primary destinations only</b>, and hidden on wizard and detail screens where it would compete with the primary action.</td><td>Absent on screens 06–12</td></tr>
+  <tr><td>Touch targets are <b>44px minimum</b>; dense rows use the divider list rather than shrinking the target.</td><td>All 12 screens</td></tr>
+  <tr><td>All copy resolves through the string table in <code>lib/i18n.ts</code>, so English and Bahasa Malaysia are structurally guaranteed to stay in step.</td><td>All 12 screens</td></tr>
+</table>
+
+<p class="note" style="margin-top:26px;padding-top:14px;border-top:1px solid var(--line-2)">
+  <b>Note on this document.</b> These are wireframes, not mockups: they fix layout, hierarchy and
+  interaction, and deliberately carry no brand colour, imagery or finished type. Colours are noted in
+  prose only. The real styling lives in <code>tailwind.config.ts</code> and the
+  <code>ss-*</code> / <code>od-*</code> classes in <code>app/globals.css</code>; nothing here needs to
+  change when that design system evolves. Print to A4 landscape for a clean three-up contact sheet.
+</p>
+
+</body>
+</html>
